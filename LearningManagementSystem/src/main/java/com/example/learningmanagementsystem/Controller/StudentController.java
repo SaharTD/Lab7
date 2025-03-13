@@ -106,17 +106,14 @@ public class StudentController {
 
 
     @GetMapping("getstate/{id}")
-
     public ResponseEntity getState(@PathVariable String id) {
 
 
-        if (studentService.studentState(id).equals("false")) {
-            return ResponseEntity.status(200).body("the student state is inactive ");
+        if (studentService.studentState(id)) {
+            return ResponseEntity.status(200).body("the student state is updated ");
 
-        } else if (studentService.studentState(id).equals("true")){
-            return ResponseEntity.status(200).body("the student state is active ");
-    }
-        return ResponseEntity.status(400).body(new ApiResponse("The student is not found"));
+        }
+            return ResponseEntity.status(200).body("the student is not found ");
 
 
     }

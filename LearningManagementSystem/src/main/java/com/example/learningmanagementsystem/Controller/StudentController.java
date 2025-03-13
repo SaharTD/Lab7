@@ -105,7 +105,8 @@ public class StudentController {
 
 
 
-    @GetMapping("getCourses/")
+    @GetMapping("getstate/{id}")
+
     public ResponseEntity getState(@PathVariable String id) {
 
 

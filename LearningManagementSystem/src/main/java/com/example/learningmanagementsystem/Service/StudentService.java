@@ -121,6 +121,19 @@ public class StudentService {
 
 
 
+   public boolean changeInstructor (String stu_id, String instructor_name , String courseCode){
+       for (Student s : students ){
+           if(s.getId().equalsIgnoreCase(stu_id)){
+               for(Course c : s.getCourses())
+                   if(c.getCourseCode().equalsIgnoreCase(courseCode)){
+                   c.setInstructorName(instructor_name);
+                   return true;
+               }
+           }
+       }
+       return false;
+
+   }
 
 
     }

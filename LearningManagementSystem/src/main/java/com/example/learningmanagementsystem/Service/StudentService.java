@@ -60,72 +60,70 @@ public class StudentService {
 
 
     public boolean addCourse(Course course,String id) {
-for (Student s : students) {
-            if(s.getId().equalsIgnoreCase(id)){
-            for (Course c:s.getCourses()) {
-                if (c.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
-                    return false;
-                    //course is already there
-                }else {
-s.getCourses().add(course);
-courseService1.addCourse(course);
+        for (Student s : students) {
+            if (s.getId().equalsIgnoreCase(id)) {
+                for (Course c : s.getCourses()) {
+                    if (c.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
+                        return false;
+                        //course is already there
+                    }
+                }
+                    s.getCourses().add(course);
+                    courseService1.addCourse(course);
                     return true;
                 }
             }
-            }
-
-        }
 //no student found
-return false ;
+            return false;
     }
-
 
 // this method return all active courses
-    public ArrayList<Course> getAlCourses(String stud_id) {
+        public ArrayList<Course> getAlCourses (String stud_id){
 
-    ArrayList<Course>activeCourses=new ArrayList<>();
+            ArrayList<Course> activeCourses = new ArrayList<>();
 
-        for (int i = 0; i < students.size(); i++) {
-            if(students.get(i).getId().equalsIgnoreCase(stud_id)){
-                for(Course c: students.get(i).getCourses()){
-                    if(c.isActiveState()) {
-                        activeCourses.add(c);
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getId().equalsIgnoreCase(stud_id)) {
+                    for (Course c : students.get(i).getCourses()) {
+                        if (c.isActiveState()) {
+                            activeCourses.add(c);
+                        }
+
+
                     }
-
-
+                    return activeCourses;
                 }
-                return  activeCourses;
+
             }
-
+            return null;
         }
-        return null;
-    }
 
 
+        //if student did not enroll in any course then they are inactive
+        public boolean studentState (String id){
+            boolean hasActiveCourse = false;
+            for (Student s : students) {
+                if (s.getId().equalsIgnoreCase(id)) {
+                    for (Course c : s.getCourses()) {
+                        if (c.isActiveState()) {
+                            hasActiveCourse = true;
+                            break;
+                        }
 
-
-
-    //if student did not enroll in any course then they are inactive
-public boolean studentState(String id) {
-    boolean hasActiveCourse = false;
-    for (Student s : students) {
-        if (s.getId().equalsIgnoreCase(id)) {
-            for (Course c : s.getCourses()) {
-                if (c.isActiveState()) {
-                    hasActiveCourse = true;
-                    break;
+                    }
+                    s.setActiveState(hasActiveCourse);
+                    return true;
                 }
-                s.setActiveState(hasActiveCourse);
-                return true;
             }
-
+            return false;
         }
+
+
+
+
+
+
     }
-    return false;
-}
-
-
-}
 
 
 

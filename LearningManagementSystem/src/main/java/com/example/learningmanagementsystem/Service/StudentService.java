@@ -106,21 +106,24 @@ return false ;
 
 
     //if student did not enroll in any course then they are inactive
-public String studentState(String id){
-String flag;
-        for(Student s : students){
-            if(s.getId().equalsIgnoreCase(id)){
-                for(Course c :s.getCourses()) {
-                    if (!c.isActiveState()){
-                        s.setActiveState(false);
-                        return flag="false";
-                    }
+public boolean studentState(String id) {
+    boolean hasActiveCourse = false;
+    for (Student s : students) {
+        if (s.getId().equalsIgnoreCase(id)) {
+            for (Course c : s.getCourses()) {
+                if (c.isActiveState()) {
+                    hasActiveCourse = true;
+                    break;
                 }
-
+                s.setActiveState(hasActiveCourse);
+                return true;
             }
-return flag="true";
+
         }
-    return flag="notfound";
+    }
+    return false;
+}
+
 
 }
 
@@ -135,5 +138,5 @@ return flag="true";
 
 
 
-}
+
 

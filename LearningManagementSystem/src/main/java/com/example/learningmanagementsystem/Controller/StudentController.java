@@ -118,6 +118,20 @@ public class StudentController {
 
     }
 
+    
+
+    @PutMapping("changeInstructor/{stud_id}/{courseCode}/{instructor_Name}")
+    public ResponseEntity changeInstructor (@PathVariable String stud_id,@PathVariable String instructor_Name,@PathVariable String courseCode){
+
+        if (studentService.changeInstructor(stud_id,instructor_Name,courseCode)){
+            return ResponseEntity.status(200).body("Instructor has changed successfully  ");
+
+        }
+        return ResponseEntity.status(400).body("the student is not found ");
+
+
+    }
+
 
 
 }
